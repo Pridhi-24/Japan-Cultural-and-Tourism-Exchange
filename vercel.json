@@ -1,0 +1,8 @@
+{
+  "functions": {
+    "api/itinerary.js": {
+      "maxDuration": 10,
+      "includeFiles": "data/**"
+    }
+  }
+}
