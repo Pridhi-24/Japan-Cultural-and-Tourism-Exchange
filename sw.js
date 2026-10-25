@@ -1,12 +1,12 @@
 // Makes the site installable and lets it open offline.
-// Never touches /api/ calls. Pages and data always try the internet first,
+// Never touches /api/ calls. Pages and data try the internet first,
 // so new deploys show up right away; the saved copy is only a fallback.
-const CACHE = 'oob-v2';
+const CACHE = 'oob-v3';
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE)
-      .then(c => c.addAll(['/', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png']))
+      .then(c => Promise.all(['/', '/manifest.webmanifest', '/icon-192.png', '/icon-512.png'].map(u => c.add(u).catch(() => {}))))
       .then(() => self.skipWaiting())
   );
 });
